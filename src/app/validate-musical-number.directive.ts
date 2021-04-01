@@ -8,7 +8,7 @@ import { DataService } from './data.service';
     provide: NG_VALIDATORS,
     useExisting: ValidateMusicalNumberDirective,
     multi: true
-}]
+  }]
 })
 export class ValidateMusicalNumberDirective implements Validator{
   @Input('validateMusicalNumber') validateMusicalNumber: string = '';
@@ -23,7 +23,5 @@ export class ValidateMusicalNumberDirective implements Validator{
       else {
         return null
       }
-
   }
-
 }
