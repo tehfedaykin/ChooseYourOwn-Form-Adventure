@@ -1,0 +1,50 @@
+<h2>Reactive Path</h2>
+<form class="example-form" [formGroup]="myForm">
+  <h3>Favorites</h3>
+  <div class="form-group" formGroupName="myFavorites">
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite musical</mat-label>
+      <mat-select formControlName="musical">
+        <mat-option *ngFor="let musicalItem of musicalList" [value]="musicalItem">
+          {{musicalItem}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite Number</mat-label>
+      <input matInput placeholder="Ex. It makes me feel..." formControlName="number">
+    </mat-form-field>
+  </div>
+  <h3>Music Cast Members</h3>
+  <div class="form-group" formArrayName="cast">
+    <div class="cast-member" *ngFor="let castGroup of (myForm.controls.cast | cast: FormArray).controls; index as i;">
+      <ng-container [formGroup]="castGroup | cast: FormGroup">
+        <mat-form-field class="inline">
+          <mat-label>Role</mat-label>
+          <input matInput placeholder="Glinda" formControlName="role">
+        </mat-form-field>
+        <span>
+          ...
+        </span>
+        <mat-form-field class="inline">
+          <mat-label>Actor</mat-label>
+          <input matInput placeholder="Kristin Chenoweth" formControlName="actor">
+        </mat-form-field>
+        <button mat-mini-fab color="warn"
+          aria-label="Remove cast member"
+          *ngIf="(myForm.controls.cast | cast: FormArray).controls.length > 1"
+          (click)="removeCastMember(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <button mat-raised-button color="basic" (click)="addCastMember()">Add Cast Member</button>
+  </div>
+
+  <button mat-raised-button color="primary" class="submit-button" type="submit" (click)="submitForm()">Submit</button>
+</form>
+
+

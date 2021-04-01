@@ -1,0 +1,47 @@
+<h2>Template Driven Path</h2>
+<form class="example-form" #myForm="ngForm">
+  <h3>Favorites</h3>
+  <div class="form-group" ngModelGroup="myFormModel.myFavorites">
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite musical</mat-label>
+      <mat-select name="musical" placeholder="Funny Girl" [(ngModel)]="myFormModel.myFavorites.musical" #musicalInput="ngModel">
+        <mat-option *ngFor="let musicalItem of musicalList" [value]="musicalItem">
+          {{musicalItem}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite Number</mat-label>
+      <input matInput type="text" name="number" placeholder="Ex. It makes me feel..."
+      [(ngModel)]="myFormModel.myFavorites.number" [validateMusicalNumber]="musicalInput.value" [disabled]="!musicalInput.value">
+    </mat-form-field>
+  </div>
+
+  <h3>Music Cast Members</h3>
+  <div class="form-group" ngModelGroup="myFormModel.castMembers">
+    <div class="cast-member" *ngFor="let castGroup of myFormModel.castMembers; index as i;">
+        <mat-form-field class="inline">
+          <mat-label>Role</mat-label>
+          <input matInput placeholder="Glinda" name="role_{{i}}" [(ngModel)]="castGroup.role" required>
+        </mat-form-field>
+        <span>
+          ...
+        </span>
+        <mat-form-field class="inline">
+          <mat-label>Actor</mat-label>
+          <input matInput placeholder="Kristin Chenoweth" name="actor_{{i}}" [(ngModel)]="castGroup.actor" required>
+        </mat-form-field>
+          <button mat-mini-fab color="warn"
+          aria-label="Remove cast member"
+          *ngIf="myFormModel.castMembers.length > 1"
+          (click)="removeCastMember(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+    </div>
+  </div>
+  <div class="row">
+    <button mat-raised-button color="basic" (click)="addCastMember()">Add Cast Member</button>
+  </div>
+  <button mat-raised-button color="primary" class="submit-button" type="submit" (click)="submitForm()">Submit</button>
+</form>

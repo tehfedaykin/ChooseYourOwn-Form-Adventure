@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.row {
+  display: flex;
+  flex-direction: row;
+
+  .col {
+    padding: 2.5em;
+  }
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.mat-raised-button {
+  margin: 1em 0 0 0 !important;
+}
+
+.form-group {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  &.ng-touched.ng-invalid {
+    border: solid red 1px;
+  }
+}
